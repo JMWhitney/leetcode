@@ -1,0 +1,22 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "A repository to house my solutions to leetcode.com challenge problems.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JMWhitney/leetcode.git"
+  },
+  "author": "Justin Whitney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JMWhitney/leetcode/issues"
+  },
+  "homepage": "https://github.com/JMWhitney/leetcode#readme",
+  "dependencies": {
+    "jest": "^24.8.0"
+  }
+}
