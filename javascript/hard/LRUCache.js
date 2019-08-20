@@ -32,7 +32,17 @@ LRUCache.prototype.get = function(key) {
  * Inserts the key value pair on the map, and the key to the back of the queue.
  */
 LRUCache.prototype.put = function(key, value) {
-  // If there is room simply set the key value pair and add the key to the back of the queue
+
+  // If the cache already contains a key then overwrite it and stop.
+  if(this.cache.has(key)) {
+    let index = this.priorityQueue.indexOf(key);
+    this.priorityQueue.splice(index, 1);
+    this.priorityQueue.unshift(key);
+    this.cache.set(key, value);
+    return null;
+  } 
+
+  // If there is room set the key value pair and add the key to the back of the queue
   if(this.numKeys < this.capacity) {
     this.cache.set(key, value);
     this.priorityQueue.unshift(key);
@@ -40,23 +50,14 @@ LRUCache.prototype.put = function(key, value) {
   } 
   // There is no room
   else {
-    // Key already exists
-    if(this.cache.has(key)) {
-      let index = this.priorityQueue.indexOf(key);
-      this.priorityQueue.splice(index, 1);
-      this.priorityQueue.unshift(key);
-    } 
-    // Key doesn't exist
-    else {
-      // Remove LRU key from queue
-      let LRUKey = this.priorityQueue.pop();
-      // Remove key value pair from the cache
-      this.cache.delete(LRUKey);
-      // Add new key value pair
-      this.priorityQueue.unshift(key);
-    }
+    // Remove LRU key from queue, delete it from cache and add the new key to the cache
+    let LRUKey = this.priorityQueue.pop();
+    this.cache.delete(LRUKey);
+    this.priorityQueue.unshift(key);
+    //Set property on cache
     this.cache.set(key, value);
   }
+  return null;
 };
 
 /** 
